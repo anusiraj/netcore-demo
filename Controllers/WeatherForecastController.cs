@@ -1,11 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using NETCoreDemo.Services;
+using NETCoreDemo.Models;
 
 namespace NETCoreDemo.Controllers;
 
-[ApiController]
-[Route("[controller]s")]
-public class WeatherForecastController : ControllerBase
+public class WeatherForecastController : ApiControllerBase
 {
     private readonly ILogger<WeatherForecastController> _logger;
     private readonly IWeatherForecastService _service;

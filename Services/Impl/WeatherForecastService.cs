@@ -1,5 +1,7 @@
 namespace NETCoreDemo.Services;
 
+using NETCoreDemo.Models;
+
 public class WeatherForecastService : IWeatherForecastService
 {
     private static readonly string[] Summaries = new[]

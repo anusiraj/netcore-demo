@@ -1,4 +1,4 @@
-namespace NETCoreDemo;
+namespace NETCoreDemo.Models;
 
 public class WeatherForecast
 {

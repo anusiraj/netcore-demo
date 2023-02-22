@@ -11,6 +11,14 @@ builder.Services.AddSwaggerGen();
 
 // Register the services for dependency injection
 builder.Services.AddScoped<IWeatherForecastService, WeatherForecastService>();
+builder.Services.AddScoped<IOrderProcessingService, OrderProcessingService>();
+builder.Services.AddScoped<IEmailSenderService, FakeEmailSenderService>();
+builder.Services.AddSingleton<IChatGPTService, FakeChatGPTService>();
+
+builder.Services.AddSingleton<ICounterService, RequestCounterService>();
+
+// Change this to different lifetime and see how it works
+builder.Services.AddTransient<IDemoService, DemoService>();
 
 var app = builder.Build();
 
