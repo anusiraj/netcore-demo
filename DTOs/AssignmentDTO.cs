@@ -10,6 +10,8 @@ public class AssignmentDTO : BaseDTO<Assignment>
 
     public override void UpdateModel(Assignment model)
     {
-        // TODO: Implement this
+        model.Deadline = Deadline;
+        model.Name = Name;
+        model.Description = Description;
     }
 }

@@ -7,9 +7,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services
+    .AddControllers()
+    .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 
-// FIXME: Can't use enum strings in the payload
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -27,9 +28,9 @@ builder.Services.AddSingleton<ICounterService, RequestCounterService>();
 builder.Services.AddTransient<IDemoService, DemoService>();
 builder.Services.AddSingleton<ICourseService, FakeCourseSerivce>();
 
-// FIXME: Missing service registration
+builder.Services.AddSingleton<ICrudService<Student, StudentDTO>, FakeCrudService<Student, StudentDTO>>();
 
-// FIXME: Missing configuration registration for IOptions<CourseSetting>
+builder.Services.Configure<CourseSetting>(builder.Configuration.GetSection("MyCourseSettings"));
 
 var app = builder.Build();
 

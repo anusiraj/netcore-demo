@@ -5,7 +5,6 @@ using NETCoreDemo.Models;
 using NETCoreDemo.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
-// TODO: Turn this into a generic controller
 public class StudentController : ApiControllerBase
 {
     private readonly ILogger<StudentController> _logger;

@@ -3,7 +3,6 @@ namespace NETCoreDemo.DTOs;
 
 using NETCoreDemo.Models;
 
-// FIXME: Code doesn't compile
 public class StudentDTO : BaseDTO<Student>
 {
     [MinLength(3)]
@@ -14,4 +13,11 @@ public class StudentDTO : BaseDTO<Student>
 
     [EmailAddress]
     public string Email { get; set; }
+
+    public override void UpdateModel(Student model)
+    {
+        model.FirstName = FirstName;
+        model.LastName = LastName;
+        model.Email = Email;
+    }
 }

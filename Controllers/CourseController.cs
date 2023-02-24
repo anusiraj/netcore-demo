@@ -6,7 +6,6 @@ using NETCoreDemo.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
-// TODO: Turn this into using a generic controller
 public class CourseController : ApiControllerBase
 {
     private readonly ILogger<CourseController> _logger;
