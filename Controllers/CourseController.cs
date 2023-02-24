@@ -4,23 +4,38 @@ using NETCoreDemo.Services;
 using NETCoreDemo.Models;
 using NETCoreDemo.DTOs;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
+// TODO: Turn this into using a generic controller
 public class CourseController : ApiControllerBase
 {
     private readonly ILogger<CourseController> _logger;
     private readonly ICourseService _service;
+    private readonly IConfiguration _config;
+    private readonly IOptions<CourseSetting> _settings;
 
-    public CourseController(ILogger<CourseController> logger, ICourseService service)
+    public CourseController(ILogger<CourseController> logger, ICourseService service, IConfiguration config, IOptions<CourseSetting> settings)
     {
         _logger = logger;
         _service = service ?? throw new ArgumentNullException(nameof(service));
+        _config = config;
+        _settings = settings;
     }
 
     [HttpPost]
-    public Course? Create(CourseDTO request)
+    public IActionResult Create(CourseDTO request)
     {
+        if (request.Size < _settings.Value.MinSize || request.Size > _settings.Value.MaxSize)
+        {
+            return BadRequest(new { Message = "Course size is not valid" });
+        }
+
         var course = _service.Create(request);
-        return course;
+        if (course is null)
+        {
+            return BadRequest();
+        }
+        return Ok(course);
     }
 
     [HttpGet("{id:int}")]

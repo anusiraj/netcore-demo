@@ -1,14 +1,15 @@
-using System.Security.AccessControl;
 using NETCoreDemo.Services;
 using System.Text.Json.Serialization;
+using NETCoreDemo.Models;
+using NETCoreDemo.DTOs;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services
-    .AddControllers()
-    .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+builder.Services.AddControllers();
+
+// FIXME: Can't use enum strings in the payload
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -24,8 +25,11 @@ builder.Services.AddSingleton<ICounterService, RequestCounterService>();
 
 // Change this to different lifetime and see how it works
 builder.Services.AddTransient<IDemoService, DemoService>();
-
 builder.Services.AddSingleton<ICourseService, FakeCourseSerivce>();
+
+// FIXME: Missing service registration
+
+// FIXME: Missing configuration registration for IOptions<CourseSetting>
 
 var app = builder.Build();
 
