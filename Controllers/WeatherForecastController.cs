@@ -8,12 +8,17 @@ public class WeatherForecastController : ApiControllerBase
 {
     private readonly ILogger<WeatherForecastController> _logger;
     private readonly IWeatherForecastService _service;
+    private readonly ICounterService _counterService;
 
-    public WeatherForecastController(ILogger<WeatherForecastController> logger, IWeatherForecastService service)
+    public WeatherForecastController(ILogger<WeatherForecastController> logger, 
+                                        IWeatherForecastService service,
+                                        ICounterService counterService)
     {
         _logger = logger;
         _service = service;
         _logger.LogInformation("This is the constructor");
+        _counterService = counterService;
+        _counterService.Increase();
     }
 
     [HttpGet]

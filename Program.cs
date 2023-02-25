@@ -18,7 +18,7 @@ builder.Services.AddSingleton<IChatGPTService, FakeChatGPTService>();
 builder.Services.AddSingleton<ICounterService, RequestCounterService>();
 
 // Change this to different lifetime and see how it works
-builder.Services.AddTransient<IDemoService, DemoService>();
+builder.Services.AddScoped<IDemoService, DemoService>();
 
 var app = builder.Build();
 
