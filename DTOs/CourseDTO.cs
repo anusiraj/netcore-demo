@@ -5,7 +5,7 @@ using NETCoreDemo.Models;
 using NETCoreDemo.Common;
 using System.Collections.Generic;
 
-public class CourseDTO : IValidatableObject
+public class CourseDTO : IValidatableObject //to vlaidate every objects by comparing
 {
     [MinLength(5, ErrorMessage = "Name is too short, min: 5 characters")]
     public string? Name { get; set; }
@@ -17,7 +17,7 @@ public class CourseDTO : IValidatableObject
 
     public int Size { get; set; }
 
-    public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+    public IEnumerable<ValidationResult> Validate(ValidationContext validationContext) //it allows validation for all objects
     {
         if (StartDate < DateTime.Now && Status == Course.CourseStatus.NotStarted)
         {

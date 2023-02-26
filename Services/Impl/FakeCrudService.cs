@@ -1,14 +1,15 @@
+using System.Collections.Concurrent;
 using NETCoreDemo.DTOs;
 using NETCoreDemo.Models;
 
 namespace NETCoreDemo.Services;
 
 public class FakeCrudService<TModel, TDto> : ICrudService<TModel, TDto>
-    where TModel
+    where TModel: BaseModel, new()
     where TDto : BaseDTO<TModel>
 {
-    // FIXME: This is not thread-safe
-    private Dictionary<int, TModel> _items = new();
+    // FIXME: This is not thread-safe - done
+    private ConcurrentDictionary<int, TModel> _items = new();
     private int _itemId;
 
     public TModel? Create(TDto request)
@@ -19,7 +20,8 @@ public class FakeCrudService<TModel, TDto> : ICrudService<TModel, TDto>
             Id = Interlocked.Increment(ref _itemId), // Atomic operation
         };
         _items[item.Id] = item;
-        // TODO: Updating item from dto
+        // TODO: Updating item from dto - done
+        request.UpdateModel(item);
         return item;
     }
 
@@ -53,7 +55,8 @@ public class FakeCrudService<TModel, TDto> : ICrudService<TModel, TDto>
         {
             return null;
         }
-        // TODO: Updating item from dto
+        // TODO: Updating item from dto - done
+        request.UpdateModel(item);
         return item;
     }
 }
