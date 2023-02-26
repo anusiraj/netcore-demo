@@ -5,7 +5,7 @@ using NETCoreDemo.Models;
 using NETCoreDemo.Common;
 using System.Collections.Generic;
 
-public class CourseDTO : IValidatableObject //to vlaidate every objects by comparing
+public class CourseDTO : BaseDTO<Course> //to vlaidate every objects by comparing
 {
     [MinLength(5, ErrorMessage = "Name is too short, min: 5 characters")]
     public string? Name { get; set; }
@@ -27,5 +27,12 @@ public class CourseDTO : IValidatableObject //to vlaidate every objects by compa
         {
             yield return new ValidationResult("The name has to be in the format: FIN FS<number>", new string[]{nameof(Name)});
         }
+    }
+
+    public override void UpdateModel(Course model)
+    {
+        model.Name = Name;
+        model.Status = Status;
+        model.StartDate = StartDate;
     }
 }

@@ -24,10 +24,11 @@ builder.Services.AddSingleton<ICounterService, RequestCounterService>();
 
 // Change this to different lifetime and see how it works
 builder.Services.AddTransient<IDemoService, DemoService>();
-builder.Services.AddSingleton<ICourseService, FakeCourseSerivce>();
+// builder.Services.AddSingleton<ICourseService, FakeCourseSerivce>();
 
 // FIXME: Missing service registration - done
 builder.Services.AddSingleton<ICrudService<Student,StudentDTO>, FakeCrudService<Student, StudentDTO>>();
+builder.Services.AddSingleton<ICrudService<Course,CourseDTO>, FakeCrudService<Course, CourseDTO>>();
 
 // FIXME: Missing configuration registration for IOptions<CourseSetting> - done
 builder.Services.Configure<CourseSetting>(builder.Configuration.GetSection("MyCourseSettings")); // to DI the configured coursesetting from appsettings

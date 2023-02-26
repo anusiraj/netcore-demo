@@ -1,0 +1,17 @@
+# POST https://localhost:7064/courses HTTP/1.1
+# content-type : application/json" 
+
+# {
+#     "Name": "FIN FS13", "Status" : "OnGoing", "StartDate" : "2023-02-26", "Size" : 15
+# }
+
+GET https://localhost:7064/courses/
+
+# PUT https://localhost:7064/courses/1 HTTP/1.1
+# content-type : application/json" 
+
+# {
+#     "Name": "FIN FS10", "Status" : "OnGoing", "StartDate" : "2023-02-26", "Size" : 15
+# }
+
+# DELETE https://localhost:7064/courses/2
