@@ -46,6 +46,13 @@ public class FakeCourseSerivce : ICourseService
         return _courses.Values;
     }
 
+    public ICollection<Course> GetCoursesByStatus(Course.CourseStatus status)
+    {
+        return _courses.Values
+            .Where(c => c.Status == status)
+            .ToList();
+    }
+
     public Course? Update(int id, CourseDTO request)
     {
         var course = Get(id);

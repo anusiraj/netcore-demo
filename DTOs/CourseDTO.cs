@@ -5,7 +5,7 @@ using NETCoreDemo.Models;
 using NETCoreDemo.Common;
 using System.Collections.Generic;
 
-public class CourseDTO : IValidatableObject
+public class CourseDTO : BaseDTO<Course>, IValidatableObject
 {
     [MinLength(5, ErrorMessage = "Name is too short, min: 5 characters")]
     public string? Name { get; set; }
@@ -16,6 +16,11 @@ public class CourseDTO : IValidatableObject
     public Course.CourseStatus Status { get; set; }
 
     public int Size { get; set; }
+
+    public override void UpdateModel(Course model)
+    {
+        throw new NotImplementedException();
+    }
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
