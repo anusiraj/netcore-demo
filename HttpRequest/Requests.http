@@ -2,16 +2,23 @@
 # content-type : application/json" 
 
 # {
-#     "Name": "FIN FS13", "Status" : "OnGoing", "StartDate" : "2023-02-26", "Size" : 15
+#     "name": "FIN FS13", "startDate" : "2023-02-26", "status" : "OnGoing", "size" : 15
 # }
 
-GET https://localhost:7064/courses/
+# GET https://localhost:7064/courses?status=NotStarted
+
+# POST https://localhost:7064/students HTTP/1.1
+# content-type : application/json" 
+
+# {
+#     "FirstName": "Ishal", "LastName" : "Anas", "Email" : "ishal@gmail.com"
+# }
 
 # PUT https://localhost:7064/courses/1 HTTP/1.1
 # content-type : application/json" 
 
 # {
-#     "Name": "FIN FS10", "Status" : "OnGoing", "StartDate" : "2023-02-26", "Size" : 15
+#     "name": "FIN FS20", "startDate" : "2023-04-26", "status" : "NotStarted", "size" : 15
 # }
 
-# DELETE https://localhost:7064/courses/2
+# DELETE https://localhost:7064/students/1

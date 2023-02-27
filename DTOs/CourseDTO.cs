@@ -5,7 +5,7 @@ using NETCoreDemo.Models;
 using NETCoreDemo.Common;
 using System.Collections.Generic;
 
-public class CourseDTO : BaseDTO<Course> //to vlaidate every objects by comparing
+public class CourseDTO : BaseDTO<Course>, IValidatableObject //to vlaidate every objects by comparing
 {
     [MinLength(5, ErrorMessage = "Name is too short, min: 5 characters")]
     public string? Name { get; set; }
