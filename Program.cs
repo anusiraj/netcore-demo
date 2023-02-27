@@ -1,7 +1,10 @@
+using System;
 using NETCoreDemo.Services;
 using System.Text.Json.Serialization;
 using NETCoreDemo.Models;
 using NETCoreDemo.DTOs;
+using NETCoreDemo.Db;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +14,7 @@ builder.Services
     .AddControllers()
     .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 
+builder.Services.AddDbContext<AppDbContext>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -39,6 +43,17 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+
+    // NOTE: Don't do this in production
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbContext = scope.ServiceProvider.GetService<AppDbContext>();
+        if (dbContext is not null)
+        {
+            dbContext.Database.EnsureDeleted();
+            dbContext.Database.EnsureCreated();
+        }
+    }
 }
 
 app.UseHttpsRedirection();
