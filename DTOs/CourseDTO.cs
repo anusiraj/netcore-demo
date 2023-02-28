@@ -8,7 +8,7 @@ using System.Collections.Generic;
 public class CourseDTO : BaseDTO<Course>, IValidatableObject
 {
     [MinLength(5, ErrorMessage = "Name is too short, min: 5 characters")]
-    public string? Name { get; set; }
+    public string Name { get; set; } = string.Empty;
 
     [CourseStartDate(ErrorMessage = "Start date has to be in the current year")]
     public DateTime StartDate { get; set; }
@@ -19,7 +19,10 @@ public class CourseDTO : BaseDTO<Course>, IValidatableObject
 
     public override void UpdateModel(Course model)
     {
-        throw new NotImplementedException();
+        model.Name = Name;
+        model.StartDate = StartDate;
+        model.Status = Status;
+        model.Size = Size;
     }
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
