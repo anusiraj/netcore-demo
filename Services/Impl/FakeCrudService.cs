@@ -4,28 +4,26 @@ using NETCoreDemo.Models;
 
 namespace NETCoreDemo.Services;
 
+// TODO: Fix the async warnings in the methods
 public class FakeCrudService<TModel, TDto> : ICrudService<TModel, TDto>
-    where TModel: BaseModel, new()
+    where TModel : BaseModel, new()
     where TDto : BaseDTO<TModel>
 {
-    // FIXME: This is not thread-safe - done
-    private ConcurrentDictionary<int, TModel> _items = new();
+    protected ConcurrentDictionary<int, TModel> _items = new();
     private int _itemId;
 
-    public TModel? Create(TDto request)
+    public async Task<TModel?> CreateAsync(TDto request)
     {
-        // FIXME: Code doesn't compile - done
         var item = new TModel
         {
             Id = Interlocked.Increment(ref _itemId), // Atomic operation
         };
         _items[item.Id] = item;
-        // TODO: Updating item from dto - done
         request.UpdateModel(item);
         return item;
     }
 
-    public bool Delete(int id)
+    public async Task<bool> DeleteAsync(int id)
     {
         if (!_items.ContainsKey(id))
         {
@@ -34,7 +32,7 @@ public class FakeCrudService<TModel, TDto> : ICrudService<TModel, TDto>
         return _items.Remove(id, out var _);
     }
 
-    public TModel? Get(int id)
+    public async Task<TModel?> GetAsync(int id)
     {
         if (_items.TryGetValue(id, out var item))
         {
@@ -43,19 +41,18 @@ public class FakeCrudService<TModel, TDto> : ICrudService<TModel, TDto>
         return null;
     }
 
-    public ICollection<TModel> GetAll()
+    public async Task<ICollection<TModel>> GetAllAsync()
     {
         return _items.Values;
     }
 
-    public TModel? Update(int id, TDto request)
+    public async Task<TModel?> UpdateAsync(int id, TDto request)
     {
-        var item = Get(id);
+        var item = await GetAsync(id);
         if (item is null)
         {
             return null;
         }
-        // TODO: Updating item from dto - done
         request.UpdateModel(item);
         return item;
     }

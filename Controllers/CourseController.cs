@@ -16,8 +16,8 @@ public class CourseController : BaseController<Course, CourseDTO>
         _service = service ?? throw new ArgumentNullException(nameof(service));
     }
     [HttpGet]
-    public ICollection<Course> GetCoursesByStatus([FromQuery] Course.CourseStatus status)
+    public async Task<ICollection<Course>> GetCoursesByStatus([FromQuery] Course.CourseStatus status)
     {
-        return _service.GetCoursesByStatus(status);
+        return await  _service.GetCoursesByStatusAsync(status);
     }   
 }

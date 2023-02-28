@@ -18,9 +18,9 @@ public abstract class BaseController<TModel, TDto> : ApiControllerBase
     }
 
     [HttpPost]
-    public virtual IActionResult Update(TDto request)
+    public async virtual Task<IActionResult> Create(TDto request)
     {
-        var item = _service.Create(request);
+        var item = await _service.CreateAsync(request);
         if (item is null)
         {
             return BadRequest();
@@ -29,9 +29,9 @@ public abstract class BaseController<TModel, TDto> : ApiControllerBase
     }
 
     [HttpGet("{id:int}")]
-    public virtual ActionResult<TModel?> Get(int id)
+    public async virtual Task<ActionResult<TModel?>> Get(int id)
     {
-        var item = _service.Get(id);
+        var item =  await _service.GetAsync(id);
         if (item is null)
         {
             return NotFound("Item is not found");
@@ -40,9 +40,9 @@ public abstract class BaseController<TModel, TDto> : ApiControllerBase
     }
 
     [HttpPut("{id:int}")]
-    public virtual ActionResult<TModel?> Update(int id, TDto request)
+    public async virtual Task<ActionResult<TModel?>> Update(int id, TDto request)
     {
-        var item = _service.Update(id, request);
+        var item = await _service.UpdateAsync(id, request);
         if (item is null)
         {
             return NotFound($"{item} is not found");
@@ -51,9 +51,9 @@ public abstract class BaseController<TModel, TDto> : ApiControllerBase
     }
 
     [HttpDelete("{id}")]
-    public virtual ActionResult Delete(int id)
+    public async virtual Task<ActionResult> Delete(int id)
     {
-        if (_service.Delete(id))
+        if (await _service.DeleteAsync(id))
         {
             return Ok(new { Message = "Item is deleted " });
         }
@@ -61,8 +61,8 @@ public abstract class BaseController<TModel, TDto> : ApiControllerBase
     }
 
     [HttpGet]
-    public virtual ICollection<TModel> GetAll()
+    public async virtual Task<ICollection<TModel>> GetAll()
     {
-        return _service.GetAll();
+        return await _service.GetAllAsync();
     }
 }

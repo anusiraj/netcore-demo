@@ -5,10 +5,10 @@ using NETCoreDemo.Models;
 using NETCoreDemo.Common;
 using System.Collections.Generic;
 
-public class CourseDTO : BaseDTO<Course>, IValidatableObject //to vlaidate every objects by comparing
+public class CourseDTO : BaseDTO<Course>, IValidatableObject
 {
     [MinLength(5, ErrorMessage = "Name is too short, min: 5 characters")]
-    public string? Name { get; set; }
+    public string Name { get; set; } = string.Empty;
 
     [CourseStartDate(ErrorMessage = "Start date has to be in the current year")]
     public DateTime StartDate { get; set; }
@@ -17,7 +17,15 @@ public class CourseDTO : BaseDTO<Course>, IValidatableObject //to vlaidate every
 
     public int Size { get; set; }
 
-    public IEnumerable<ValidationResult> Validate(ValidationContext validationContext) //it allows validation for all objects
+    public override void UpdateModel(Course model)
+    {
+        model.Name = Name;
+        model.StartDate = StartDate;
+        model.Status = Status;
+        model.Size = Size;
+    }
+
+    public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
         if (StartDate < DateTime.Now && Status == Course.CourseStatus.NotStarted)
         {
@@ -27,12 +35,5 @@ public class CourseDTO : BaseDTO<Course>, IValidatableObject //to vlaidate every
         {
             yield return new ValidationResult("The name has to be in the format: FIN FS<number>", new string[]{nameof(Name)});
         }
-    }
-
-    public override void UpdateModel(Course model)
-    {
-        model.Name = Name;
-        model.Status = Status;
-        model.StartDate = StartDate;
     }
 }
