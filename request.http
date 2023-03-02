@@ -1,0 +1,26 @@
+# POST https://localhost:7064/courses HTTP/1.1
+# content-type : application/json" 
+
+# {
+#     "name": "FIN FS13", "startDate" : "2023-02-26", "status" : "Ended", "size" : 15
+# }
+
+# GET https://localhost:7064/courses
+
+# PUT https://localhost:7064/courses/1 HTTP/1.1
+# content-type : application/json" 
+
+# {
+#     "name": "FIN FS13 - Finland", "startDate" : "2023-02-26", "status" : "Ended", "size" : 15
+# }
+
+GET https://localhost:7064/students/1
+
+# POST https://localhost:7064/students HTTP/1.1
+# content-type : application/json" 
+
+# {
+#     "firstName": "Jencir", "lastName" : "Jamal", "email" : "jencirjamal@gmail.com", "address" : {
+#         "street": "Itakeskus", "city" : "Helsinki", "zipcode" : "00900"
+#     }
+# }

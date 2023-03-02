@@ -39,12 +39,12 @@ public class DbCrudService<TModel, TDto> : ICrudService<TModel, TDto>
         return true;
     }
 
-    public async Task<ICollection<TModel>> GetAllAsync()
+    public virtual async Task<ICollection<TModel>> GetAllAsync()
     {
-        return await _dbContext.Set<TModel>().ToListAsync();
+        return await _dbContext.Set<TModel>().AsNoTracking().ToListAsync(); //no tracking by cache bz it is just returning all data straight from the db
     }
 
-    public async Task<TModel?> GetAsync(int id)
+    public virtual async Task<TModel?> GetAsync(int id)
     {
         return await _dbContext.Set<TModel>().FindAsync(id);
     }

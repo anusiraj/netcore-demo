@@ -26,7 +26,9 @@ public class AppDbContext : DbContext
         var connString = _config.GetConnectionString("DefaultConnection");
         optionsBuilder
             .UseNpgsql(connString)
+            .AddInterceptors(new AppDbContextSaveChangesInterceptor())
             .UseSnakeCaseNamingConvention();
+            // .UseLazyLoadingProxies(); // 3rd option(lazyloading) //first install
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -39,7 +41,42 @@ public class AppDbContext : DbContext
             .HasIndex(c => c.Name);
 
         //base.OnModelCreating(modelBuilder);
+
+        //TODO: Change this repeating in a better way, make a loop
+        modelBuilder.Entity<Student>()
+            .HasIndex(s => s.Email)
+            .IsUnique();
+
+        modelBuilder.Entity<Student>()
+            .Property(s => s.UpdatedAt)
+            .HasDefaultValueSql("CURRENT_TIMESTAMP");
+        
+        modelBuilder.Entity<Student>()
+            .Property(s => s.CreatedAt)
+            .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+        modelBuilder.Entity<Address>()
+            .Property(s => s.UpdatedAt)
+            .HasDefaultValueSql("CURRENT_TIMESTAMP");
+        
+         modelBuilder.Entity<Address>()
+            .Property(s => s.CreatedAt)
+            .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+        modelBuilder.Entity<Student>()
+            .HasOne(s => s.Address) //relation with one property
+            .WithOne() //empty bz address not need to track students so no student property in address model
+            //but it 1-1 so need to mention .WithOne
+            .OnDelete(DeleteBehavior.SetNull);
+        
+        //always load the address along with student
+        // modelBuilder.Entity<Student>()
+        //     .Navigation(s => s.Address)
+        //     .AutoInclude();
     }
 
-    public DbSet<Course> Courses { get; set; } = null!;
+    public DbSet<Course> Courses { get; set; } = null!; //Name can be whatever, just to declare
+    public DbSet<Student> Students { get; set; } = null!;
+    public DbSet<Address> Addresses { get; set; } = null!; 
+    
 }

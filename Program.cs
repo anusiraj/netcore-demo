@@ -33,7 +33,8 @@ builder.Services.AddScoped<IDemoService, DemoService>();
 
 builder.Services.AddScoped<ICourseService, DbCourseSerivce>();
 
-builder.Services.AddSingleton<ICrudService<Student, StudentDTO>, FakeCrudService<Student, StudentDTO>>();
+builder.Services.AddScoped<IStudentService, DbStudentService>();
+builder.Services.AddScoped<ICrudService<Address, AddressDTO>, DbCrudService<Address, AddressDTO>>();
 
 builder.Services.Configure<CourseSetting>(builder.Configuration.GetSection("MyCourseSettings"));
 
@@ -43,7 +44,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwagger();
 
     // NOTE: Don't do this in production
     using (var scope = app.Services.CreateScope())

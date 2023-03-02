@@ -4,6 +4,8 @@ using NETCoreDemo.Services;
 using NETCoreDemo.Models;
 using NETCoreDemo.DTOs;
 using Microsoft.AspNetCore.Mvc;
+using Pagination;
+
 
 public abstract class CrudController<TModel, TDto> : ApiControllerBase
     where TModel : BaseModel

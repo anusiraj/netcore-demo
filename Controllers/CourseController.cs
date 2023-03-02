@@ -14,7 +14,7 @@ public class CourseController : CrudController<Course, CourseDTO>
         _service = service;
     }
 
-    // TODO: Combine this with the GetAll() method from the base class
+    // TODO: Combine this with the GetAll() method from the base class - done
     // 1. If no status is given on query string, return all
     // 2. Otherwise, filter the courses by status
     [HttpGet("by-status")]
