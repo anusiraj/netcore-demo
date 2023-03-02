@@ -16,6 +16,8 @@ public class StudentDTO : BaseDTO<Student>
 
     public AddressDTO Address { get; set; } = null!;
 
+    public int? CourseId { get; set; }
+
     public override void UpdateModel(Student model)
     {
         model.FirstName = FirstName;
@@ -24,5 +26,6 @@ public class StudentDTO : BaseDTO<Student>
         var address = new Address(); //save the payload(updated address) to this obj
         Address.UpdateModel(address);//update the new address in Address table
         model.Address = address;// update hat address also in the student table.
+        model.CourseId = CourseId;
     }
 }

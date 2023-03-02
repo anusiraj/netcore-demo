@@ -15,6 +15,10 @@ public class Course : BaseModel
     [Column(TypeName = "smallint")]
     public int Size { get; set; }
 
+    public ICollection<Student> Students { get; set; } = null!; 
+
+    //no need of related entities id(StudentId) in principal side
+
     public enum CourseStatus
     {
         NotStarted,

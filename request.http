@@ -14,13 +14,15 @@
 #     "name": "FIN FS13 - Finland", "startDate" : "2023-02-26", "status" : "Ended", "size" : 15
 # }
 
-GET https://localhost:7064/students/1
+GET https://localhost:7064/students
 
 # POST https://localhost:7064/students HTTP/1.1
 # content-type : application/json" 
 
 # {
-#     "firstName": "Jencir", "lastName" : "Jamal", "email" : "jencirjamal@gmail.com", "address" : {
-#         "street": "Itakeskus", "city" : "Helsinki", "zipcode" : "00900"
-#     }
+#     "firstName": "Anu", "lastName" : "Jencir", "email" : "anujencir@gmail.com", "address" : {
+#         "street": "Itakeskus", "city" : "Helsinki", "zipcode" : "00900" }, "CourseId" : 1
 # }
+
+# DELETE https://localhost:7064/students/1
+# DELETE https://localhost:7064/courses/1
