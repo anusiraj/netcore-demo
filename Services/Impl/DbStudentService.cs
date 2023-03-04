@@ -20,6 +20,8 @@ public class DbStudentService : DbCrudService<Student, StudentDTO>, IStudentServ
             //EagerLoading
             .AsNoTracking()
             .Include(s => s.Address)
+            .Include(s => s.Course)
+            .Include(s =>s.Assignments)
             .OrderByDescending(s => s.CreatedAt)
             .ToListAsync();
     }

@@ -14,7 +14,7 @@
 #     "name": "FIN FS13 - Finland", "startDate" : "2023-02-26", "status" : "Ended", "size" : 15
 # }
 
-GET https://localhost:7064/students
+GET https://localhost:7064/students/1
 
 # POST https://localhost:7064/students HTTP/1.1
 # content-type : application/json" 
@@ -26,3 +26,26 @@ GET https://localhost:7064/students
 
 # DELETE https://localhost:7064/students/1
 # DELETE https://localhost:7064/courses/1
+
+# POST https://localhost:7064/assignments HTTP/1.1
+# content-type : application/json" 
+
+# {
+#     "name": "C# backend", "deadline" : "2023-02-26", "descriptiom" : "C# Backend Modeule is almost complete"
+# }
+
+# POST https://localhost:7064/assignments HTTP/1.1
+# content-type : application/json" 
+
+# {
+#     "name": "C# backend", "deadline" : "2023-02-26", "descriptiom" : "C# Backend Modeule is almost complete"
+# }
+
+# GET https://localhost:7064/assignments
+
+# POST https://localhost:7064/assignments/1/assign HTTP/1.1
+# content-type : application/json" 
+
+# {
+#     "students" : [1,2,3]
+# }

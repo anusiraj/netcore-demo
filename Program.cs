@@ -12,7 +12,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
     .AddControllers()
-    .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+        //Fix the json cycle issue
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    });
 
 builder.Services.AddDbContext<AppDbContext>();
 
@@ -22,11 +27,11 @@ builder.Services.AddSwaggerGen();
 
 // Register the services for dependency injection
 builder.Services.AddScoped<IWeatherForecastService, WeatherForecastService>();
-builder.Services.AddScoped<IOrderProcessingService, OrderProcessingService>();
-builder.Services.AddScoped<IEmailSenderService, FakeEmailSenderService>();
-builder.Services.AddSingleton<IChatGPTService, FakeChatGPTService>();
+// builder.Services.AddScoped<IOrderProcessingService, OrderProcessingService>();
+// builder.Services.AddScoped<IEmailSenderService, FakeEmailSenderService>();
+// builder.Services.AddSingleton<IChatGPTService, FakeChatGPTService>();
 
-builder.Services.AddSingleton<ICounterService, RequestCounterService>();
+// builder.Services.AddSingleton<ICounterService, RequestCounterService>();
 
 // Change this to different lifetime and see how it works
 builder.Services.AddScoped<IDemoService, DemoService>();
@@ -35,6 +40,9 @@ builder.Services.AddScoped<ICourseService, DbCourseSerivce>();
 
 builder.Services.AddScoped<IStudentService, DbStudentService>();
 builder.Services.AddScoped<ICrudService<Address, AddressDTO>, DbCrudService<Address, AddressDTO>>();
+
+builder.Services.AddScoped<IAssignmentService, DbAssignmentService>();
+
 
 builder.Services.Configure<CourseSetting>(builder.Configuration.GetSection("MyCourseSettings"));
 

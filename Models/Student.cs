@@ -25,9 +25,12 @@ public class Student : BaseModel
     public int? AddressId { get; set; } //should be optional. This is to tell this is the forign Id inorder for the case delete
     
     //using conventions
-    [JsonIgnore] // otherwise loading this too for GET req for students make it cycling the rquest and makes error
+    // [JsonIgnore]// otherwise loading this too for GET req for students make it cycling the rquest and makes error
+    // 2nd option on Program.cs
     public Course? Course { get; set ;}
 
     //TODO use DTO for response also
     public int? CourseId { get; set ; } //frgn key (Student is dependent side, Course is the principal side)
+
+    public ICollection<Assignment> Assignments {get; set; } = null!; //many-many
 }
