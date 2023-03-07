@@ -14,7 +14,7 @@
 #     "name": "FIN FS13 - Finland", "startDate" : "2023-02-26", "status" : "Ended", "size" : 15
 # }
 
-GET https://localhost:7064/students
+# GET https://localhost:7064/students
 
 # POST https://localhost:7064/students HTTP/1.1
 # content-type : application/json" 
@@ -63,7 +63,7 @@ GET https://localhost:7064/students
 #     "deadline" : "2023-02-26", "startdate" : "2023-02-26", "enddate" : "2023-02-26"
 # }
 
-# GET https://localhost:7064/projects/1
+GET https://localhost:7064/projects
 
 
 # POST https://localhost:7064/projects/1/add-students HTTP/1.1

@@ -19,6 +19,7 @@ public class Course : BaseModel
 
     //no need of related entities id(StudentId) in principal side
 
+    [NotMapped]
     public ICollection<string> Images { get; set; } = null!;
 
     public enum CourseStatus

@@ -61,10 +61,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
 
     // NOTE: Don't do this in production
-    using (var scope = app.Services.CreateScope())
+    using (var scope = app.Services.CreateScope()) //no need this after migration
     {
         var dbContext = scope.ServiceProvider.GetService<AppDbContext>();
-        if (dbContext is not null)
+        var config = scope.ServiceProvider.GetService<IConfiguration>();
+
+        if (dbContext is not null && config.GetValue<bool>("CreateDbAtStart", false)) //later change this and on dev.json file to true
         {
             dbContext.Database.EnsureDeleted();
             dbContext.Database.EnsureCreated();
