@@ -21,7 +21,10 @@ public class DbStudentService : DbCrudService<Student, StudentDTO>, IStudentServ
             .AsNoTracking()
             .Include(s => s.Address)
             .Include(s => s.Course)
-            .Include(s =>s.Assignments)
+            .Include(s => s.Assignments)
+            .Include(s => s.ProjectLinks) // => a list of ProjectStudent
+                .ThenInclude(ps => ps.Project) // => returns project from that list
+                // .ThenInclude(ps => new{ps.Project, ps.Student}) //if we need student also
             .OrderByDescending(s => s.CreatedAt)
             .ToListAsync();
     }

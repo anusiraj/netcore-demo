@@ -5,6 +5,7 @@ using NETCoreDemo.Models;
 using NETCoreDemo.DTOs;
 using NETCoreDemo.Db;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +19,11 @@ builder.Services
         //Fix the json cycle issue
         options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
     });
-
+var options = new JsonSerializerOptions
+{
+    ReadCommentHandling = JsonCommentHandling.Skip,
+    AllowTrailingCommas = true,
+};
 builder.Services.AddDbContext<AppDbContext>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -42,6 +47,7 @@ builder.Services.AddScoped<IStudentService, DbStudentService>();
 builder.Services.AddScoped<ICrudService<Address, AddressDTO>, DbCrudService<Address, AddressDTO>>();
 
 builder.Services.AddScoped<IAssignmentService, DbAssignmentService>();
+builder.Services.AddScoped<IProjectService, DbProjectService>();
 
 
 builder.Services.Configure<CourseSetting>(builder.Configuration.GetSection("MyCourseSettings"));

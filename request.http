@@ -14,13 +14,13 @@
 #     "name": "FIN FS13 - Finland", "startDate" : "2023-02-26", "status" : "Ended", "size" : 15
 # }
 
-GET https://localhost:7064/students/1
+GET https://localhost:7064/students
 
 # POST https://localhost:7064/students HTTP/1.1
 # content-type : application/json" 
 
 # {
-#     "firstName": "Anu", "lastName" : "Jencir", "email" : "anujencir@gmail.com", "address" : {
+#     "firstName": "Jencir", "lastName" : "Jencir", "email" : "aenc@gmail.com", "address" : {
 #         "street": "Itakeskus", "city" : "Helsinki", "zipcode" : "00900" }, "CourseId" : 1
 # }
 
@@ -43,9 +43,32 @@ GET https://localhost:7064/students/1
 
 # GET https://localhost:7064/assignments
 
-# POST https://localhost:7064/assignments/1/assign HTTP/1.1
+# POST https://localhost:7064/assignments/3/assign HTTP/1.1
 # content-type : application/json" 
 
 # {
 #     "students" : [1,2,3]
 # }
+
+# DELETE https://localhost:7064/assignments/1
+
+
+# GET https://localhost:7064/assignments/1
+
+# POST https://localhost:7064/projects HTTP/1.1
+# content-type : application/json" 
+
+# {
+#     "name" : "FullStack Project", "tags" : ["fs", "fullstack", "backend", "frontend"],
+#     "deadline" : "2023-02-26", "startdate" : "2023-02-26", "enddate" : "2023-02-26"
+# }
+
+# GET https://localhost:7064/projects/1
+
+
+# POST https://localhost:7064/projects/1/add-students HTTP/1.1
+# content-type : application/json" 
+
+# [{
+#     "studentsId" : 1, "role" : "Developer"
+# }]

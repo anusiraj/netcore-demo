@@ -32,5 +32,7 @@ public class Student : BaseModel
     //TODO use DTO for response also
     public int? CourseId { get; set ; } //frgn key (Student is dependent side, Course is the principal side)
 
-    public ICollection<Assignment> Assignments {get; set; } = null!; //many-many
+    public ICollection<Assignment> Assignments {get; set; } = null!; //direct many-many
+
+    public ICollection<ProjectStudent> ProjectLinks {get; set; } = null!; //in-direct many-many(linking to join table)
 }

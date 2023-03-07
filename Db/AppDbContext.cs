@@ -9,7 +9,9 @@ public class AppDbContext : DbContext
     // Static constructor which will be run ONCE
     static AppDbContext()
     {
-        NpgsqlConnection.GlobalTypeMapper.MapEnum<Course.CourseStatus>();
+        NpgsqlConnection.GlobalTypeMapper.MapEnum<Course.CourseStatus>(); //Warning bz use suitable for dontet7
+        NpgsqlConnection.GlobalTypeMapper.MapEnum<ProjectRole>();
+
         // You can also do that automatically using Reflection
 
         // Use the legacy timestamp behaviour - check Npgsql for more details
@@ -34,7 +36,9 @@ public class AppDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         // Map C# enum to Postgres enum
-        modelBuilder.HasPostgresEnum<Course.CourseStatus>();
+        modelBuilder.HasPostgresEnum<Course.CourseStatus>();//db create enum for us
+        modelBuilder.HasPostgresEnum<ProjectRole>();
+
 
         // Create an index on Name using Fluent API
         modelBuilder.Entity<Course>()
@@ -68,6 +72,10 @@ public class AppDbContext : DbContext
             .WithOne() //empty bz address not need to track students so no student property in address model
             //but it 1-1 so need to mention .WithOne
             .OnDelete(DeleteBehavior.SetNull);
+
+        //Tell EFCore to use the composite key otherwise it will not bz of not having primary key
+        modelBuilder.Entity<ProjectStudent>()
+            .HasKey(ps => new { ps.ProjectId, ps.StudentId});
         
         //always load the address along with student
         // modelBuilder.Entity<Student>()
@@ -78,5 +86,8 @@ public class AppDbContext : DbContext
     public DbSet<Course> Courses { get; set; } = null!; //Name can be whatever, just to declare
     public DbSet<Student> Students { get; set; } = null!;
     public DbSet<Address> Addresses { get; set; } = null!; 
+    public DbSet<Project> Projects { get; set; } = null!; 
+    public DbSet<ProjectStudent> ProjectStudents { get; set; } = null!; 
+
     
 }

@@ -58,7 +58,7 @@ public abstract class CrudController<TModel, TDto> : ApiControllerBase
         {
             return Ok(new { Message = "Item is deleted " });
         }
-        return NotFound("Item is not found");
+        return NotFound("Item not found");
     }
 
     [HttpGet]
